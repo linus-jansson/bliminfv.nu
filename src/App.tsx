@@ -160,7 +160,7 @@ const Game = () => {
     const randomEmoji = () => randomEmojis[Math.floor(Math.random() * randomEmojis.length)];
     return (
         <div>
-            <h1 className="text-4xl font-bold tracking-wider capitalize font-sans">Will you be my gf? {randomEmoji()}</h1>
+            <h1 className="text-4xl font-bold capitalize font-sans text-center">Will you be my gf? {randomEmoji()}</h1>
             <div className='flex items-center justify-center gap-4 mt-12'>
                 <Btn onClick={redirectToSocial}>{randomWordForYes}{' '}{randomEmoji()}</Btn>
                 <ShyBtn />
