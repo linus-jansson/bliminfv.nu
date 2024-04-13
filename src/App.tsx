@@ -14,12 +14,17 @@ const Btn = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLB
 const ShyBtn = () => {
     const btnRef = useRef<HTMLButtonElement>(null);
     
-    const handleMouseMove = (e:any) => {
+    const getCoordinates = (e :any) => {
+        if (e.touches) {
+            return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }
+        return { x: e.clientX, y: e.clientY };
+    }
+
+    const handleMove = (e :any) => {
+        const { x: mouseX, y: mouseY } = getCoordinates(e);
         const button = btnRef.current;
         if (!button) return;
-
-        const mouseX = e.clientX;
-        const mouseY = e.clientY;
 
         const buttonRect = button.getBoundingClientRect();
         const distanceX = Math.abs(buttonRect.left + buttonRect.width / 2 - mouseX);
@@ -31,19 +36,22 @@ const ShyBtn = () => {
             const boundedX = Math.max(0, Math.min(newX, window.innerWidth - buttonRect.width));
             const boundedY = Math.max(0, Math.min(newY, window.innerHeight - buttonRect.height));
 
-            button.style.position = 'absolute'
+            button.style.position = 'absolute';
             button.style.left = `${boundedX}px`;
             button.style.top = `${boundedY}px`;
         }
     };
 
     useEffect(() => {
-        if (btnRef.current) {
-            document.addEventListener('mousemove', handleMouseMove);
+        const currentButton = btnRef.current;
+        if (currentButton) {
+            document.addEventListener('mousemove', handleMove);
+            document.addEventListener('touchmove', handleMove, { passive: false });
         }
 
         return () => {
-            document.removeEventListener('mousemove', handleMouseMove)
+            document.removeEventListener('mousemove', handleMove);
+            document.removeEventListener('touchmove', handleMove);
         };
     }, []);
 
@@ -148,18 +156,35 @@ const PortalContainer = () => {
     )
 }
 
-function App() {
+const Game = () => {
     const randomWordForYes = yesWords[Math.floor(Math.random() * yesWords.length)];
     const randomEmoji = () => randomEmojis[Math.floor(Math.random() * randomEmojis.length)];
+    return (
+        <div>
+            <h1 className="text-4xl font-bold">Will you be my gf? {randomEmoji()}</h1>
+            <div className='flex items-center justify-center gap-4 mt-12'>
+                <Btn onClick={redirectToSocial}>{randomWordForYes}{' '}{randomEmoji()}</Btn>
+                <ShyBtn />
+            </div>
+        </div>
+    )
+}
+
+// const MessageShownToMobileUsers = () => {
+//     return (
+//         <div className='p-4 bg-white rounded-lg shadow-lg'>
+//             <h1 className='text-2xl font-bold'>This website is only available on desktop</h1>
+//             <p className='text-lg'>Please visit this website on a desktop to see the magic 🪄</p>
+//         </div>
+//     )
+// }
+
+function App() {
     return (
         <>
             <main className="grid place-items-center w-full h-screen bg-blue-300">
                 <div className='z-50 space-y-10'>
-                    <h1 className="text-4xl font-bold">Will you be my gf? {randomEmoji()}</h1>
-                    <div className='flex items-center justify-center gap-4 z-50'>
-                        <Btn onClick={redirectToSocial}>{randomWordForYes}{' '}{randomEmoji()}</Btn>
-                        <ShyBtn />
-                    </div>
+                    <Game/>
                 </div>
             </main>
             {createPortal(<PortalContainer/>, document.body)}
