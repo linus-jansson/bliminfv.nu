@@ -112,10 +112,16 @@ const MovingCloud = () => {
             const cloudRect = cloud.getBoundingClientRect();
             const newX = cloudRect.left + 1; // Move cloud to the right by 1 pixel
 
-            if (newX > (window.visualViewport?.width || window.innerWidth)) {
+            const windowWidth = window.visualViewport?.width ?? window.innerWidth;
+            if (newX > (windowWidth + cloudRect.width + 50)) {
+                // Temporarily disable transition
+                cloud.style.transition = 'none';
                 // Reset the cloud to start from the left again with a random vertical position
                 cloud.style.left = `-${cloudRect.width}px`;
                 cloud.style.top = `${Math.floor(Math.random() * (window.innerHeight - cloudRect.height))}px`;
+                setTimeout(() => {
+                    cloud.style.transition = 'left 30ms';
+                }, 30);
             } else {
                 cloud.style.left = `${newX}px`; // Update the left style to move the cloud
             }
