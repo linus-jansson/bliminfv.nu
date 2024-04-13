@@ -194,7 +194,7 @@ function App() {
             </main>
             <footer className='absolute bottom-0 left-0 w-full z-50 flex justify-center flex-col'>
                 <div className='text-center text-gray-700 p-2 text-sm'>
-                    <p className='font-semibold tracking-wider'>Made with ❤️ by <Link href="https://www.limpan.dev/">l1mpan</Link> 🍞</p>
+                    <p className='font-semibold tracking-wider'>Made with ❤️ by <Link href="https://limpan.dev/">l1mpan</Link> 🍞</p>
                 </div>
             </footer>
             {createPortal(<PortalContainer />, document.body)}
