@@ -182,7 +182,7 @@ const Game = () => {
 function App() {
     return (
         <>
-            <main className="grid place-items-center w-full h-screen bg-blue-300">
+            <main className="grid place-items-center w-screen h-screen bg-blue-300 ">
                 <div className='z-50 space-y-10'>
                     <Game/>
                 </div>
