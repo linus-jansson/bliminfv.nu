@@ -60,6 +60,7 @@ const ShyBtn = () => {
         nuUh.style.fontSize = '3rem';
         nuUh.style.color = 'red';
         nuUh.textContent = '☝🏻';
+        nuUh.style.zIndex = '1000';
         document.body.appendChild(nuUh);
 
         // Animate the text with rotation that goes from -20deg to 20deg from its original titlt
@@ -105,7 +106,7 @@ const MovingCloud = () => {
             
             if (newX > window.innerWidth - cloudRect.width) {
                 // Reset the cloud to start from the left again with a random vertical position
-                cloud.style.left = `-${cloudRect.width}px`;
+                cloud.style.left = `-50px`;
                 cloud.style.top = `${Math.floor(Math.random() * (window.innerHeight - cloudRect.height))}px`;
             } else {
                 cloud.style.left = `${newX}px`; // Update the left style to move the cloud
@@ -140,7 +141,7 @@ const MovingCloud = () => {
 const PortalContainer = () => {
     return (
     <>
-        {Array.from({ length: 10 }).map((_, i) => (
+        {Array.from({ length: 25 }).map((_, i) => (
             <MovingCloud key={i} />
         ))}
     </>
@@ -156,7 +157,7 @@ function App() {
                 <div className='z-50 space-y-10'>
                     <h1 className="text-4xl font-bold">Will you be my gf? {randomEmoji()}</h1>
                     <div className='flex items-center justify-center gap-4 z-50'>
-                        <Btn onClick={redirectToSocial}>{randomWordForYes}{randomEmoji()}</Btn>
+                        <Btn onClick={redirectToSocial}>{randomWordForYes}{' '}{randomEmoji()}</Btn>
                         <ShyBtn />
                     </div>
                 </div>
