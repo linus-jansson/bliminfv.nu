@@ -11,7 +11,7 @@ const Btn = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLB
     )
 });
 
-const ShyBtn = () => {
+const ShyBtn = ({children}: {children: React.ReactNode}) => {
     const btnRef = useRef<HTMLButtonElement>(null);
 
     const getCoordinates = (e: any) => {
@@ -91,7 +91,7 @@ const ShyBtn = () => {
                 willChange: 'left, top'
             }}
             onClick={spawnSwiningText}
-        >No</Btn>
+        >{children}</Btn>
     );
 }
 
@@ -164,12 +164,21 @@ const PortalContainer = () => {
 const Game = () => {
     const randomWordForYes = yesWords[Math.floor(Math.random() * yesWords.length)];
     const randomEmoji = () => randomEmojis[Math.floor(Math.random() * randomEmojis.length)];
+    const url = new URL(window.location.href);
+    const queryParams = url.searchParams;
+    //
+    const heading = queryParams.get('h') ?? 'Will you be my gf?';
+    // set title
+    document.title = heading;
+    const wordForYes = queryParams.get('y') ?? randomWordForYes;
+    const wordForNo = queryParams.get('n') ?? 'Nuh uh!';
+    //
     return (
         <div>
-            <h1 className="text-4xl font-bold capitalize font-sans text-center">Will you be my gf? {randomEmoji()}</h1>
+            <h1 className="text-4xl font-bold capitalize font-sans text-center">{heading}{' '}{randomEmoji()}</h1>
             <div className='flex items-center justify-center gap-4 mt-12'>
-                <Btn onClick={redirectToSocial}>{randomWordForYes}{' '}{randomEmoji()}</Btn>
-                <ShyBtn />
+                <Btn onClick={redirectToSocial}>{wordForYes}{' '}{randomEmoji()}</Btn>
+                <ShyBtn>{wordForNo}</ShyBtn>
             </div>
         </div>
     )
