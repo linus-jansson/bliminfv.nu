@@ -160,7 +160,7 @@ const Game = () => {
     const randomEmoji = () => randomEmojis[Math.floor(Math.random() * randomEmojis.length)];
     return (
         <div>
-            <h1 className="text-4xl font-bold">Will you be my gf? {randomEmoji()}</h1>
+            <h1 className="text-4xl font-bold tracking-wider capitalize font-sans">Will you be my gf? {randomEmoji()}</h1>
             <div className='flex items-center justify-center gap-4 mt-12'>
                 <Btn onClick={redirectToSocial}>{randomWordForYes}{' '}{randomEmoji()}</Btn>
                 <ShyBtn />
@@ -180,12 +180,8 @@ const Game = () => {
 
 const Link = ({ href, children }: { href: string, children: React.ReactNode }) => {
     return (
-        <a href={href} target="_blank" rel="noreferrer" className='text-blue-500 hover:underline'>{children}</a>
+        <a href={href} target="_blank" rel="noreferrer" className='text-blue-500 hover:underline font-bold'>{children}</a>
     )
-}
-
-const Spacer = () => {
-    return <div style={{ height: '1rem' }} />
 }
 
 function App() {
@@ -196,10 +192,9 @@ function App() {
                     <Game />
                 </div>
             </main>
-            <footer className='absolute bottom-0 left-0 w-full z-50'>
-                <Spacer />
+            <footer className='absolute bottom-0 left-0 w-full z-50 flex justify-center flex-col'>
                 <div className='text-center text-gray-700 p-2 text-sm'>
-                    <p>Made with ❤️ by <Link href="https://www.limpan.dev/">l1mpan 🍞</Link></p>
+                    <p className='font-semibold tracking-wider'>Made with ❤️ by <Link href="https://www.limpan.dev/">l1mpan</Link> 🍞</p>
                 </div>
             </footer>
             {createPortal(<PortalContainer />, document.body)}

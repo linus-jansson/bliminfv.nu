@@ -2,18 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {margin: 0; height: 100%; overflow-x: hidden; overflow-y: hidden;}
-body {
-    position: relative;
-}
-
-@keyframes swing {
-    0%, 100% {
-        transform: rotate(-20deg);
-    }
-    50% {
-        transform: rotate(20deg);
-    }
+:root {
+    --font-fallback: BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+      "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-sans;
 }
 
 @layer components {
@@ -53,3 +44,28 @@ body {
         width: 1.6em;
     }
 }
+
+html, body {margin: 0; height: 100%; overflow-x: hidden; overflow-y: hidden;}
+@font-face {
+    font-family: 'Geist';
+    /* font-style: normal;
+    font-weight: 400;
+    font-display: swap; */
+    src: url('/geist/variable-woff/GeistVF.woff2') format('woff2'),
+      url('/geist/variable-woff/GeistVF.woff') format('woff');
+  }
+body { position: relative; font-family: 'Geist', var(--font-fallback); }
+
+h1, h2, h3, h4, h5, h6, p, span, a, button {
+    font-family: 'Geist', var(--font-fallback);
+}
+
+@keyframes swing {
+    0%, 100% {
+        transform: rotate(-20deg);
+    }
+    50% {
+        transform: rotate(20deg);
+    }
+}
+
