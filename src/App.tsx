@@ -167,17 +167,17 @@ const Game = () => {
     const url = new URL(window.location.href);
     const queryParams = url.searchParams;
     //
-    const heading = queryParams.get('h') ?? 'Will you be my gf?';
+    const heading = queryParams.get('h') ?? `Will you be my gf? ${randomEmoji()}`;
     // set title
     document.title = heading;
-    const wordForYes = queryParams.get('y') ?? randomWordForYes;
+    const wordForYes = queryParams.get('y') ?? randomWordForYes + ' ' + randomEmoji();
     const wordForNo = queryParams.get('n') ?? 'Nuh uh!';
     //
     return (
         <div>
-            <h1 className="text-4xl font-bold capitalize font-sans text-center">{heading}{' '}{randomEmoji()}</h1>
+            <h1 className="text-4xl font-bold capitalize font-sans text-center">{heading}</h1>
             <div className='flex items-center justify-center gap-4 mt-12'>
-                <Btn onClick={redirectToSocial}>{wordForYes}{' '}{randomEmoji()}</Btn>
+                <Btn onClick={redirectToSocial}>{wordForYes}</Btn>
                 <ShyBtn>{wordForNo}</ShyBtn>
             </div>
         </div>
