@@ -5,21 +5,21 @@ const Btn = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLB
     return (
         <button
             ref={ref}
-            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'
+            className='px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700'
             onClick={onClick} {...props}
         >{children}</button>
     )
 });
 
+const getCoordinates = (e: any) => {
+    if (e.touches) {
+        return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }
+    return { x: e.clientX, y: e.clientY };
+}
+
 const ShyBtn = ({children}: {children: React.ReactNode}) => {
     const btnRef = useRef<HTMLButtonElement>(null);
-
-    const getCoordinates = (e: any) => {
-        if (e.touches) {
-            return { x: e.touches[0].clientX, y: e.touches[0].clientY };
-        }
-        return { x: e.clientX, y: e.clientY };
-    }
 
     const handleMove = (e: any) => {
         const { x: mouseX, y: mouseY } = getCoordinates(e);
@@ -167,7 +167,7 @@ const Game = () => {
     const url = new URL(window.location.href);
     const queryParams = url.searchParams;
     //
-    const heading = queryParams.get('h') ?? `Will you be my gf? ${randomEmoji()}`;
+    const heading = queryParams.get('h') ?? `Will go on a date with me? ${randomEmoji()}`;
     // set title
     document.title = heading;
     const wordForYes = queryParams.get('y') ?? randomWordForYes + ' ' + randomEmoji();
@@ -175,7 +175,7 @@ const Game = () => {
     //
     return (
         <div>
-            <h1 className="text-4xl font-bold capitalize font-sans text-center">{heading}</h1>
+            <h1 className="font-sans text-3xl font-bold text-center capitalize text-slate-700">{heading}</h1>
             <div className='flex items-center justify-center gap-4 mt-12'>
                 <Btn onClick={redirectToSocial}>{wordForYes}</Btn>
                 <ShyBtn>{wordForNo}</ShyBtn>
@@ -195,20 +195,20 @@ const Game = () => {
 
 const Link = ({ href, children }: { href: string, children: React.ReactNode }) => {
     return (
-        <a href={href} target="_blank" rel="noreferrer" className='text-blue-500 hover:underline font-bold'>{children}</a>
+        <a href={href} target="_blank" rel="noreferrer" className='font-bold text-blue-500 hover:underline'>{children}</a>
     )
 }
 
 function App() {
     return (
         <>
-            <main className="grid place-items-center w-screen h-screen bg-blue-300 ">
+            <main className="grid w-screen h-screen bg-blue-300 place-items-center ">
                 <div className='z-50 space-y-10'>
                     <Game />
                 </div>
             </main>
-            <footer className='absolute bottom-0 left-0 w-full z-50 flex justify-center flex-col'>
-                <div className='text-center text-gray-700 p-2 text-sm'>
+            <footer className='absolute bottom-0 left-0 z-50 flex flex-col justify-center w-full'>
+                <div className='p-2 text-sm text-center text-gray-700'>
                     <p className='font-semibold tracking-wider'>Made with ❤️ by <Link href="https://limpan.dev/">l1mpan</Link> 🍞</p>
                 </div>
             </footer>
