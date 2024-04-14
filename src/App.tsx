@@ -29,10 +29,10 @@ const ShyBtn = ({children}: {children: React.ReactNode}) => {
         const buttonRect = button.getBoundingClientRect();
         const distanceX = Math.abs(buttonRect.left + buttonRect.width / 2 - mouseX);
         const distanceY = Math.abs(buttonRect.top + buttonRect.height / 2 - mouseY);
-
-        if (distanceX < 50 && distanceY < 50) {
-            const newX = mouseX + (mouseX < window.innerWidth / 2 ? 100 : -100);
-            const newY = mouseY + (mouseY < window.innerHeight / 2 ? 100 : -100);
+        const distanceToMove = 125;
+        if (distanceX < 75 && distanceY < 75) {
+            const newX = mouseX + (mouseX < window.innerWidth / 2 ? distanceToMove : -distanceToMove);
+            const newY = mouseY + (mouseY < window.innerHeight / 2 ? distanceToMove : -distanceToMove);
             const boundedX = Math.max(0, Math.min(newX, window.innerWidth - buttonRect.width));
             const boundedY = Math.max(0, Math.min(newY, window.innerHeight - buttonRect.height));
 
@@ -167,7 +167,7 @@ const Game = () => {
     const url = new URL(window.location.href);
     const queryParams = url.searchParams;
     //
-    const heading = queryParams.get('h') ?? `Will go on a date with me? ${randomEmoji()}`;
+    const heading = queryParams.get('h') ?? `Will u go on a date with me? ${randomEmoji()}`;
     // set title
     document.title = heading;
     const wordForYes = queryParams.get('y') ?? randomWordForYes + ' ' + randomEmoji();
