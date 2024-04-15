@@ -97,8 +97,8 @@ const ShyBtn = ({children}: {children: React.ReactNode}) => {
 
 const yesWords = ['Yes!', 'Sure!', 'Ofcourse!', 'Definitely!', 'Absolutely!', 'Yea!', 'Yeah!',];
 const randomEmojis = ['😊', '🥰', '😍', '💖', '🌹', '💕'];
-const redirectToSocial = () => {
-    window.location.href = 'https://www.instagram.com/limpn__/';
+const redirectToSocial = (url : string) => {
+    window.location.href = url;
 }
 
 const MovingCloud = () => {
@@ -172,12 +172,13 @@ const Game = () => {
     document.title = heading;
     const wordForYes = queryParams.get('y') ?? randomWordForYes + ' ' + randomEmoji();
     const wordForNo = queryParams.get('n') ?? 'Nuh uh!';
+    const onClickLink = queryParams.get('l') ?? 'https://www.snapchat.com/add/profile9345';
     //
     return (
         <div>
             <h1 className="font-sans text-3xl font-bold text-center capitalize text-slate-700">{heading}</h1>
             <div className='flex items-center justify-center gap-4 mt-12'>
-                <Btn onClick={redirectToSocial}>{wordForYes}</Btn>
+                <Btn onClick={() => redirectToSocial(onClickLink)}>{wordForYes}</Btn>
                 <ShyBtn>{wordForNo}</ShyBtn>
             </div>
         </div>
